@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    @include('Seller.header')
     <div class="container">
         <br />
         <h3 align="center">Product table</h3>
@@ -108,7 +109,7 @@
                                 <img id="imageSrc" src="" style="max-width: 200px;" />
                             </div>
                         </div>
-                     
+
 
 
                         <div class="form-group">
@@ -270,6 +271,7 @@
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    @include('Seller.footer')
 </body>
 
 </html>
