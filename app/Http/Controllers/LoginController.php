@@ -41,8 +41,7 @@ class LoginController extends Controller
         if (!$user) {
             return redirect()->route('user.login')->with('error', 'Email does not exist.');
         }
-        //    dd(Hash::check($request->password, $user->password));
-        if (Hash::check($request->password, $user->password)) {
+        if (!Hash::check($request->password, $user->password)) {
             return redirect()->route('user.login')->with('error', 'Password mismatch.');
         }
 

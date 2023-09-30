@@ -10,60 +10,67 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProducttypeController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\InterestController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WishlistController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 Route::get('user/login', [LoginController::class, 'Login'])->name('user.login');
 Route::post('user/login', [LoginController::class, 'postLogin'])->name('user.login.submit');
 Route::get('user/logout', [LoginController::class, 'logout'])->name('user.logout');
-
-
 Route::get('user/register', [RegisterController::class, 'register'])->name('user.register');
 Route::post('user/register', [RegisterController::class, 'store'])->name('user.register.submit');
-
-// Route::post('/store-selected-categories', 'CategoryController@storeSelectedCategories')->name('storeSelectedCategories');
-
-
-// Route::post('/add-to-cart', 'CartController@addToCart')->name('add-to-cart');
-// Route::get('/cart', 'CartController@Cart')->name('viewcart');
-
 Route::get('/forget-password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('password.request');
 Route::post('/forget-password', [ForgetPasswordController::class, 'sendPasswordResetEmail'])->name('password.email');
 Route::get('reset-password/{token}', [ForgetPasswordController::class, 'resetPassword'])->name('resetPassword');
 Route::post('/rest-passwords/submit', [ForgetPasswordController::class, 'resetPasswordSubmit'])->name('resetPasswordSubmit');
-
 Route::get('auth/google', [LoginController::class, 'signInwithGoogle']);
 Route::get('callback/google', [LoginController::class, 'callbackToGoogle']);
 
 Route::get('/about', [AboutController::class, 'index'])->name('user.about');
-Route::get('/home', [AboutController::class, 'home'])->name('user.home');
 Route::get('/cart', [AboutController::class, 'cart'])->name('user.cart');
-Route::get('/shop', [AboutController::class, 'shop'])->name('user.shop');
-Route::get('/contact', [AboutController::class, 'contact'])->name('user.contact');
+
 Route::get('/checkout', [AboutController::class, 'checkout'])->name('user.checkout');
 Route::get('/thankyou', [AboutController::class, 'thankyou'])->name('user.thankyou');
 Route::post('/add-interest', [AboutController::class, 'addInterest'])->name('user.add-interest');
 Route::get('/interests', [AboutController::class, 'interests'])->name('user.interests');
+Route::get('/productoffer/{id}', [ProductController::class, 'productoffer'])->name('user.productoffer');
 
+Route::get('/swap',[AboutController::class, 'view'])->name('user.swap');
+Route::delete('remove/data/{id}', [AboutController::class, 'removeData'])->name('remove.data');
+Route::get('/Swap', [ProductController::class, 'swap'])->name('swap');
+Route::post('/swap-product', [ProductController::class, 'swapProduct'])->name('swap.product');
+
+
+Route::get('/myproduct', [ProductController::class, 'myproduct'])->name('user.myproduct');
+Route::get('/home', [ProductController::class, 'home'])->name('user.home');
 Route::get('/product', [ProductController::class, 'index'])->name('user.product');
-Route::get('/products/data', [ProductController::class, 'getdata'])->name('products.data');
-Route::post('product/update', [ProductController::class, 'update'])->name('product.update');
 Route::post('product', [ProductController::class, 'store'])->name('product.store');
+Route::delete('product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+Route::post('api/fetch-subcategory', [ProductController::class, 'fetchSubcategory'])->name('api/fetch-subcategory');
+Route::post('api/fetch-product_type_id', [ProductController::class, 'fetchProducttype'])->name('api/fetch-product_type_id');
+Route::post('/get-category-info', [ProductController::class,'getCategoryInfo'])->name('get-category-info');
+
+
+Route::get('/favorite', [WishlistController::class, 'favorite'])->name('user.favorite');
+Route::post('favorite-add/{id}', [WishlistController::class, 'favoriteAdd'])->name('favorite.add');
+Route::delete('favorite-remove/{id}', [WishlistController::class, 'favoriteRemove'])->name('favorite.remove');
+
+
+
 
 //Admin
 Route::get('/admin/login', [AuthController::class, 'getLogin'])->name('getLogin');
 Route::post('/admin/login', [AuthController::class, 'postLogin'])->name('postLogin');
 
-Route::group(['prefix' => 'admin','middleware' => 'auth:admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
 
   Route::get('/dashboard', [ProfileController::class, 'dashboard'])->name('dashboard');
   Route::get('/logout', [ProfileController::class, 'logout'])->name('logout');
 
-  
+
   // Sub subcategories routes
   Route::get('/subcategories', [SubCategoryController::class, 'index'])->name('subcategories.index');
   Route::get('/subcategories/create', [SubCategoryController::class, 'create'])->name('subcategories.create');

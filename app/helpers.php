@@ -16,16 +16,16 @@ function imageUpload(Request $request)
     }
 
     return null;
-    function image(Request $request)
-    {
-        if ($request->hasFile('image')) {
-            $ext = $request->file('image')->extension();
-            $imageName = date('YmdHis') . '.' . $ext;
-            $request->file('image')->move(public_path('uploads/image/'), $imageName);
-            $imageUrl = $imageName;
-            return $imageUrl;
-        }
+    // function image(Request $request)
+    // {
+    //     if ($request->hasFile('image')) {
+    //         $ext = $request->file('image')->extension();
+    //         $imageName = date('YmdHis') . '.' . $ext;
+    //         $request->file('image')->move(public_path('uploads/image/'), $imageName);
+    //         $imageUrl = $imageName;
+    //         return $imageUrl;
+    //     }
     
-        return null;
-    }
+    //     return null;
+    // }
 }
