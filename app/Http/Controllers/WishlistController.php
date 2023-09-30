@@ -8,7 +8,6 @@ use App\models\Favorite;
 class WishlistController extends Controller
 {
 
-
     public function favorite()
     {
         $favorites = Favorite::where('user_id', auth()->user()->id)->with('product')->get();

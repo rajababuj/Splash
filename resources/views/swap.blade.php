@@ -24,10 +24,8 @@
                             <P><b>${{ $item->toProduct->description }}</b></P>
                         </a>
                     </div>
-                    @if($item->to_users_id == Auth::id())
+                
                     <a href="{{ route('user.home') }}" class="btn btn-success" data-id="{{ $item->id }}">Accept</a>
-                    @endif
-
                     <a href="#" class="btn btn-danger rejectButton" data-id="{{ $item->id }}">Reject</a>
 
 

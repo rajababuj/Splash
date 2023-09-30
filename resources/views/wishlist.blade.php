@@ -1,11 +1,4 @@
 <body>
-    @include('Seller.header')
-    @if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-    @endif
-
     <div class="p-6 bg-white border-b border-gray-200">
         <div class="flex flex-col">
             <div class="overflow-x-auto">
@@ -25,8 +18,7 @@
                                         </button>
                                     </a>
                                 </div>
-
-                                @endforeach
+                               @endforeach
                             </div>
                         </table>
                     </div>
