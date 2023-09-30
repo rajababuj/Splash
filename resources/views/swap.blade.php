@@ -4,6 +4,39 @@
         <div class="product-section">
             <div class="container">
                 <div class="row" style="justify-content: center; ">
+                    @foreach($roles as $im)
+
+                    <div class="col-6" style="margin: 0px">
+                        <a class="product-im" href="{{ route('user.productoffer', $im->id) }}">
+                            <img style="height: 100px; width:200px" src="{{$im->fromProduct->image[0]}}" class="img-fluid">
+                            <P><b>{{ $im->fromProduct->product_name }}</b></P>
+                            <p><b>${{ $im->fromProduct->price }}</b></p>
+                            <P><b>${{ $im->fromProduct->description }}</b></P>
+
+                        </a>
+                    </div>
+
+                    <div class="col-6" style="margin: 0px">
+                        <a class="product-im" href="{{ route('user.productoffer', $im->id) }}">
+                            <img style="height: 100px; width:200px" src="{{$im->toProduct->image[0]}}" class="img-fluid">
+                            <P><b>{{ $im->toProduct->product_name }}</b></P>
+                            <p><b>${{ $im->toProduct->price }}</b></p>
+                            <P><b>${{ $im->toProduct->description }}</b></P>
+                        </a>
+                    </div>
+
+                    <a href="{{ route('user.home') }}" class="btn btn-light" data-id="{{ $im->id }}">{{ $im->status }}</a>
+
+
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+        <div class="product-section">
+            <div class="container">
+                <div class="row" style="justify-content: center; ">
                     @foreach($check as $item)
 
                     <div class="col-6" style="margin: 0px">
@@ -24,7 +57,7 @@
                             <P><b>${{ $item->toProduct->description }}</b></P>
                         </a>
                     </div>
-                
+
                     <a href="{{ route('user.home') }}" class="btn btn-success" data-id="{{ $item->id }}">Accept</a>
                     <a href="#" class="btn btn-danger rejectButton" data-id="{{ $item->id }}">Reject</a>
 

@@ -17,6 +17,22 @@ class AboutController extends Controller
    {
       return view('about');
    }
+   public function view()
+   {
+
+      $roles = Swap::where('from_users_id', Auth::id())
+      ->with(['fromProduct', 'toProduct'])
+      ->get();
+
+     
+      $check = Swap::where('to_users_id', Auth::id())
+         ->where('status', 'pending') 
+         ->with(['fromProduct', 'toProduct'])
+         ->get();
+
+      return view('swap', compact('check', 'roles'));
+   }
+
    // public function view()
    // {
    //    if (Auth::check()) {
@@ -26,14 +42,14 @@ class AboutController extends Controller
    //    return view('swap', compact('check'));
    // }
 
-   public function view()
-   {
+   // public function view()
+   // {
 
-      $user_id = Auth()->user()->id;
+   //    $user_id = Auth()->user()->id;
 
-      $check = Swap::with(['fromProduct', 'toProduct'])->where('from_users_id', $user_id)->get();
-      return view('swap', compact('check'));
-   }
+   //    $check = Swap::with(['fromProduct', 'toProduct'])->where('from_users_id', $user_id)->get();
+   //    return view('swap', compact('check'));
+   // }
    public function addInterest(Request $request)
    {
       $validatedData = $request->validate([
