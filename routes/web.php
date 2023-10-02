@@ -38,10 +38,11 @@ Route::post('/add-interest', [AboutController::class, 'addInterest'])->name('use
 Route::get('/interests', [AboutController::class, 'interests'])->name('user.interests');
 Route::get('/productoffer/{id}', [ProductController::class, 'productoffer'])->name('user.productoffer');
 
-Route::get('/swap',[AboutController::class, 'view'])->name('user.swap');
+Route::get('/swap', [AboutController::class, 'view'])->name('user.swap');
 Route::delete('remove/data/{id}', [AboutController::class, 'removeData'])->name('remove.data');
 Route::get('/Swap', [ProductController::class, 'swap'])->name('swap');
 Route::post('/swap-product', [ProductController::class, 'swapProduct'])->name('swap.product');
+Route::post('/accept-or-reject-swap/{id}', [ProductController::class, 'acceptOrRejectSwap'])->name('accept.reject.swap');
 
 
 Route::get('/myproduct', [ProductController::class, 'myproduct'])->name('user.myproduct');
@@ -51,14 +52,12 @@ Route::post('product', [ProductController::class, 'store'])->name('product.store
 Route::delete('product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 Route::post('api/fetch-subcategory', [ProductController::class, 'fetchSubcategory'])->name('api/fetch-subcategory');
 Route::post('api/fetch-product_type_id', [ProductController::class, 'fetchProducttype'])->name('api/fetch-product_type_id');
-Route::post('/get-category-info', [ProductController::class,'getCategoryInfo'])->name('get-category-info');
+Route::post('/get-category-info', [ProductController::class, 'getCategoryInfo'])->name('get-category-info');
 
-
+//Favorite
 Route::get('/favorite', [WishlistController::class, 'favorite'])->name('user.favorite');
 Route::post('favorite-add/{id}', [WishlistController::class, 'favoriteAdd'])->name('favorite.add');
 Route::delete('favorite-remove/{id}', [WishlistController::class, 'favoriteRemove'])->name('favorite.remove');
-
-
 
 
 //Admin

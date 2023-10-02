@@ -24,10 +24,7 @@
                             <P><b>${{ $im->toProduct->description }}</b></P>
                         </a>
                     </div>
-
                     <a href="{{ route('user.home') }}" class="btn btn-light" data-id="{{ $im->id }}">{{ $im->status }}</a>
-
-
                     @endforeach
                 </div>
             </div>
@@ -57,10 +54,8 @@
                             <P><b>${{ $item->toProduct->description }}</b></P>
                         </a>
                     </div>
-
-                    <a href="{{ route('user.home') }}" class="btn btn-success" data-id="{{ $item->id }}">Accept</a>
-                    <a href="#" class="btn btn-danger rejectButton" data-id="{{ $item->id }}">Reject</a>
-
+                    <button type="submit" class="btn btn-success acceptButton" data-id="{{ $item->id }}">Accept</button>
+                    <a type="submit" class="btn btn-danger rejectButton" data-id="{{ $item->id }}">Reject</a>
 
                     @endforeach
                 </div>
@@ -68,36 +63,37 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     $(document).ready(function() {
-        $(".rejectButton").on("click", function(e) {
+        $(".acceptButton, .rejectButton").click(function(e) {
             e.preventDefault();
 
             var itemId = $(this).data("id");
+            var status = $(this).hasClass('acceptButton') ? 'accept' : 'reject';
 
             $.ajax({
-                url: "{{ route('remove.data', '') }}/" + itemId,
-                type: "DELETE",
-                dataType: "json",
-                success: function(response) {
-                    $(e.target).closest(".product-item").remove();
-
-                    toastr.success('Product swapped successfully.', 'Success');
-                    setTimeout(function() {
-
-                    }, 30);
+                type: "POST",
+                url: "{{ route('accept.reject.swap', ['id' => ':id']) }}".replace(':id', itemId),
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    status: status
+                },
+                success: function(data) {
+                    if (data.success) {
+                        toastr.success(data.message);
+                    } else {
+                        toastr.error(data.message);
+                    }
                 },
                 error: function(xhr, status, error) {
-                    alert("Error: " + xhr.responseText);
-                }
+                    toastr.error("An error occurred: " + error);
+                },
             });
         });
     });
 </script>
+
 
 @include('Seller.footer')

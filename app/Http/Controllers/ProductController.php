@@ -113,4 +113,20 @@ class ProductController extends Controller
         $product = Product::where('user_id', Auth::id())->get();
         return view('myproduct', compact('product'));
     }
+    public function acceptOrRejectSwap($id)
+    {
+        $status = request('status');
+        $swap = Swap::find($id);
+
+        if (!$swap) {
+            return response()->json(['success' => false, 'message' => 'Swap not found.']);
+        }
+
+        $swap->status = ($status === 'accept') ? 'accepted' : 'rejected';
+        $swap->save();
+
+        $message = ($status === 'accept') ? 'Swap accepted successfully.' : 'Swap rejected successfully.';
+
+        return response()->json(['success' => true, 'message' => $message]);
+    }
 }

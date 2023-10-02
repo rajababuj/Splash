@@ -7,12 +7,6 @@ use App\models\Favorite;
 
 class WishlistController extends Controller
 {
-
-    public function favorite()
-    {
-        $favorites = Favorite::where('user_id', auth()->user()->id)->with('product')->get();
-        return view('wishlist', compact('favorites'));
-    }
     public function favoriteAdd($id)
     {
         $user = auth()->user();
@@ -21,8 +15,9 @@ class WishlistController extends Controller
             ->first();
 
         if ($existingFavorite) {
-            return redirect()->back()->with('error', 'This product is already in your favorites.');
+            return response()->json(['message' => 'This product is already in your favorites.'], 400);
         }
+
         $favorite = new Favorite([
             'user_id' => $user->id,
             'product_id' => $id,
@@ -32,8 +27,11 @@ class WishlistController extends Controller
 
         $favorites = Favorite::where('user_id', $user->id)->with('product')->get();
 
-        return view('wishlist', compact('favorites'));
+        return response()->json(['sucess' => true, 'favorites' => $favorites], 200);
+
+        
     }
+
 
     public function favoriteRemove($id)
     {

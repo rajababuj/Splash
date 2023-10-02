@@ -1,4 +1,5 @@
 <body>
+    @include('Seller.header')
     <div class="p-6 bg-white border-b border-gray-200">
         <div class="flex flex-col">
             <div class="overflow-x-auto">
@@ -18,7 +19,7 @@
                                         </button>
                                     </a>
                                 </div>
-                               @endforeach
+                                @endforeach
                             </div>
                         </table>
                     </div>
@@ -26,39 +27,34 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const removeButtons = document.querySelectorAll('.remove-from-wishlist');
+        $(document).ready(function() {
+            $('.add-to-wishlist').on('click', function() {
+                var productId = $(this).data('product-id');
 
-            removeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = button.getAttribute('data-product-id');
-
-
-                    axios.delete(`/favorite-remove/${productId}`)
-                        .then(response => {
-
-                            if (response.data.success) {
-
-                                toastr.success(response.data.message);
-
-
-                                button.closest('.product-item').remove();
-                            } else {
-
-                                toastr.error(response.data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error(error);
-                        });
+                $.ajax({
+                    url: "{{ route('favorite.add', ['id' => ':id']) }}".replace(':id', productId),
+                    type: 'POST',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                    },
+                    success: function(data) {
+                        if (data.message) {
+                            toastr.error(data.message);
+                        } else {
+                            toastr.success('Added to Wishlist successfully');
+                        }
+                        console.log(data);
+                    },
+                    error: function(xhr) {
+                        toastr.error(xhr.responseJSON.message);
+                        console.log(xhr.responseJSON.message);
+                    },
                 });
             });
         });
     </script>
+
 
     @include('Seller.footer')
 </body>
