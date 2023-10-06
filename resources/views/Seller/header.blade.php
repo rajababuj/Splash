@@ -26,8 +26,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-
-
+<style>
+	  .red-color {
+        color:red;
+    }
+</style>
 
 </head>
 <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
@@ -45,7 +48,7 @@
 					<a class="nav-link" href="{{ route('user.home') }}">Home</a>
 				</li>
 				<li><a class="nav-link" href="{{ route('user.myproduct') }}">MyProduct</a></li>
-				<li><a class="nav-link" href="{{ route('user.about') }}">Account</a></li>
+				<li><a class="nav-link" href="{{ route('user.account') }}">Account</a></li>
 				<li><a class="nav-link" href="{{ route('user.product') }}">Product</a></li>
 				<li><a class="nav-link" href="{{ route('user.interests') }}">Interests</a></li>
 				<li><a class="nav-link" href="{{ route('user.favorite') }}">Favorite</a></li>
@@ -61,7 +64,7 @@
 
 			<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
 				<li><a class="nav-link" href="{{route('user.logout')}}"><img src="{{asset('admin-assets/dist/img/user.svg')}}"></a></li>
-				<li><a class="nav-link" href="{{ route('user.cart') }}"><img src="{{asset('admin-assets/dist/img/cart.svg')}}"></a></li>
+				
 			</ul>
 		</div>
 	</div>

@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('userAuth:web')->except('home');
+    }
+
     public function index()
     {
         $categories = Category::get(["name", "id"]);

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class RegisterRequest extends FormRequest
 {
@@ -23,11 +24,26 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            'c_password' => 'required|same:password',
+
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
         ];
+
+        $unique_rules = [];
+
+        //1 = google, 2= facebook, default = normal
+        switch ($this->input('register')) {
+            case 1:
+                $unique_rules['google_id'] = ['required','string', 'max:255'];
+                break;
+            case 2:
+                $unique_rules['facebook_id'] = ['required', 'string', 'max:255'];
+                break;
+            default:
+                $unique_rules['password'] = 'required|confirmed';
+        }
+
+        return $rules + $unique_rules;
     }
 }

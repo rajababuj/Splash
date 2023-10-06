@@ -24,7 +24,7 @@
                             <P><b>${{ $im->toProduct->description }}</b></P>
                         </a>
                     </div>
-                    <a href="{{ route('user.home') }}" class="btn btn-light" data-id="{{ $im->id }}">{{ $im->status }}</a>
+                    <a href="{{ route('user.home') }}" class="btn btn-light yellow-color" data-id="{{ $im->id }}">{{ $im->status }}</a>
                     @endforeach
                 </div>
             </div>

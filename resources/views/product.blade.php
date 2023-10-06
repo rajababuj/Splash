@@ -149,7 +149,6 @@
                 });
             });
 
-
             $('#subcategory_id').on('change', function() {
                 var idSubcategory = this.value;
                 $("#product_type_id").html('');
@@ -197,7 +196,7 @@
                         required: true,
                         maxlength: 50,
                     },
-                    image: {
+                    'images[]': {
                         required: true,
                         extension: "jpg|png",
                         accept: "image/jpeg,image/png",
@@ -231,7 +230,7 @@
                     product_type_id: {
                         required: "Please select a product type."
                     },
-                    image: {
+                    'images[]': {
                         required: "Please upload a image.",
                     },
                     price: {
@@ -247,8 +246,7 @@
                     var formData = new FormData(form);
                     let url = "";
 
-                    if ($('#id').val()) {
-                    } else {
+                    if ($('#id').val()) {} else {
                         url = "{{ route('product.store') }}";
                     }
 
@@ -277,9 +275,6 @@
                     });
                 }
             });
-
-
-
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -292,4 +287,3 @@
     @include('Seller.footer')
 </body>
 
-</html>

@@ -15,18 +15,18 @@ class AboutController extends Controller
 
    public function index()
    {
-      return view('about');
+      return view('account');
    }
    public function view()
    {
 
       $roles = Swap::where('from_users_id', Auth::id())
-      ->with(['fromProduct', 'toProduct'])
-      ->get();
+         ->with(['fromProduct', 'toProduct'])
+         ->get();
 
-     
+
       $check = Swap::where('to_users_id', Auth::id())
-         ->where('status', 'pending') 
+         ->where('status', 'pending')
          ->with(['fromProduct', 'toProduct'])
          ->get();
 
@@ -65,24 +65,7 @@ class AboutController extends Controller
    }
 
 
-   public function cart()
-   {
-      return view('cart');
-   }
-
-
-
-   public function checkout()
-   {
-      return view('checkout');
-   }
-   public function thankyou()
-   {
-      return view('thankyou');
-   }
-
-
-   public function removeData(Request $request, $id)
+   public function removeData($id)
    {
 
       $swap = Swap::find($id);

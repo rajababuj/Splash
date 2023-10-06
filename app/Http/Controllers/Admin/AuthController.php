@@ -23,11 +23,6 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        // $validated=Auth::guard('admin')->attempt([
-        //     'email'=>$request->email,
-        //     'password'=>$request->password,
-        //     // 'is_admin'=>1
-        // ]);
         $credential = [
             'email' => $request->email,
             'password' => $request->password
@@ -38,10 +33,7 @@ class AuthController extends Controller
         } else {
             return redirect()->back()->with('error', 'Invalid credentials');
         }
-        // if($validated){
-        //     return redirect()->route('dashboard')->with('success','Login Successfull');
-        // }else{
-        //     return redirect()->back()->with('error','Invalid credentials');
-        // }
+
+      
     }
 }

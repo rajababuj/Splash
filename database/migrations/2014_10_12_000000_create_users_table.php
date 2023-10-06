@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('gauth_id')->nullable();
             $table->string('gauth_type')->nullable();
+            
             $table->timestamps();
         });
     }

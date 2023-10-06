@@ -113,7 +113,7 @@ a.more {
   position: relative;
 }
 
-/* @media (min-width: 768px) {
+@media (min-width: 768px) {
   .custom-navbar .custom-navbar-nav li a:before {
     content: "";
     position: absolute;
@@ -129,7 +129,7 @@ a.more {
     -o-transition: .15s all ease-out;
     transition: .15s all ease-out;
   }
-} */
+}
 
 .custom-navbar .custom-navbar-nav li a:hover {
   opacity: 1;
